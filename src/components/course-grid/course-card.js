@@ -32,7 +32,10 @@ const CourseCard = ({course, picName, deleteCourse, updateCourse}) => {
         {!editing && <button className="float-right" onClick={() => setEditing(true)}>
           <i className="float-right fa fa-edit fa-lg wbdv-course-edit"></i>
         </button>}
-        {editing && <button className="float-right" onClick={() => deleteCourse(course)}>
+        {editing && <button className="float-right" onClick={() => {
+          deleteCourse(course)
+          setEditing(false)
+        }}>
           <i className="float-right fa fa-trash fa-lg wbdv-course-remove"></i>
         </button>}
         &nbsp;
