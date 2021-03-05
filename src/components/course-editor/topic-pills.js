@@ -14,14 +14,12 @@ const TopicPills = ({
 }) => {
   const {layout, courseId, moduleId, lessonId, topicId} = useParams();
   useEffect(()=>{
-    console.log(lessonId)
     if (moduleId !=="undefined" && typeof moduleId !== "undefined" && lessonId !== "undefined" && typeof lessonId !== "undefined") {
       findTopicsForLesson(lessonId)
     } else {
       // topics=[]
       emptyTopic()
     }
-    console.log(topics)
   }, [moduleId, lessonId])
 
   return (
@@ -38,7 +36,14 @@ const TopicPills = ({
         )}
         <li className="nav-item">
           <div className={"container-fluid"}>
-            <button onClick={() => createTopic(lessonId)}>
+            <button onClick={() => {
+                if (lessonId !== "undefined" && typeof lessonId !== "undefined") {
+                  createTopic(lessonId)
+                } else {
+                  alert("Please select a lesson first!")
+                }
+              }
+            }>
               <i className="fa fa-plus fa-2x"></i>
             </button>
           </div>
