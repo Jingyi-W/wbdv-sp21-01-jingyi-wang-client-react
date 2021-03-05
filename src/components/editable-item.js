@@ -13,8 +13,8 @@ const EditableItem = ({
   return (<div className={"container-fluid"}>
     {
       !editing &&
-      <div className={"row"}>
-        <Link className={`nav-link ${active?'active':''}`} to={to}>
+      <div className={`row ${active?'active':''}`}>
+        <Link className={"nav-link"} to={to}>
           {item.title}
         </Link>
         <i onClick={() => setEditing(true)} className="float-right fa fa-edit fa-lg"></i>
@@ -22,7 +22,7 @@ const EditableItem = ({
     }
     {
       editing &&
-      <div className={"row"}>
+      <div className={"row active"}>
         <input className={"form-control"}
                placeholder={item.title}
                type={"text"}

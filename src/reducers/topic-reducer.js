@@ -38,6 +38,11 @@ const topicReducer = (prevState = initialState, action) => {
         ...prevState,
         topics: prevState.topics.filter(topic => topic._id !== action.topicToDelete._id)
       }
+    case "EMPTY_TOPIC":
+      return {
+        ...prevState,
+        topics: []
+      }
     default:
       return prevState
   }

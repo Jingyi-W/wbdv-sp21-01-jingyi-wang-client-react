@@ -48,6 +48,9 @@ const CourseEditor = () => {
               <LessonTabs/>
             </div>
             <div className={"row"}>
+              <p></p>
+            </div>
+            <div className={"row"}>
               <TopicPills/>
             </div>
           </div>

@@ -3,7 +3,6 @@ import React, {useEffect} from "react";
 import lessonService from "../../services/lesson-service";
 import {connect} from "react-redux";
 import EditableItem from "../editable-item";
-import moduleService from "../../services/module-service";
 
 const LessonTabs = ({
     lessons=[],
@@ -26,7 +25,8 @@ const LessonTabs = ({
                   to={`/courses/${layout}/edit/${courseId}/modules/${moduleId}/lessons/${lesson._id}`}
                   updateItem={updateLesson}
                   deleteItem={deleteLesson}
-                  item={lesson}/>
+                  item={lesson}
+                  active={lesson._id === lessonId}/>
             </li>
         )}
         <li className="nav-item">

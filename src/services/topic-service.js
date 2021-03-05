@@ -10,7 +10,7 @@ const createTopic = (lessonId, topic) =>
   }).then(response => response.json())
 
 
-const findTopicsforLesson = (lessonId) =>
+const findTopicsForLesson = (lessonId) =>
   fetch(`${BASE_URL}/lessons/${lessonId}/topics`).then(response => response.json())
 
 
@@ -33,5 +33,5 @@ const deleteTopic = (topicId) =>
 
 
 export default {
-  createTopic, findTopicsforLesson, findTopic, updateTopic, deleteTopic
+  createTopic, findTopicsForLesson, findTopic, updateTopic, deleteTopic
 }

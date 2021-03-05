@@ -12,10 +12,18 @@ code {
     monospace;
 }
 
-.nav-item.list-group-item.active a {
+
+.nav-item.active a {
+  background-color: royalblue;
   color: white;
 }
 
-.nav-item.active a {
-  color: black;
+/*.nav-item.list-group-item.active a {*/
+/*  background-color: inherit;*/
+/*  color: white;*/
+/*}*/
+
+.nav-item.list-group-item.active {
+  background-color: royalblue;
+  color: white;
 }
