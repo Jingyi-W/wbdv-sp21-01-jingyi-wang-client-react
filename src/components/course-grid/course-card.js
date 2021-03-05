@@ -28,7 +28,7 @@ const CourseCard = ({course, picName, deleteCourse, updateCourse}) => {
             type={"text"}/>}
         <p className="card-text">Some quick example text to build on the
           card title and make up the bulk of the card's content.</p>
-        <Link to="/editor" className="card-link">{course.title}</Link>
+        <Link to={`/courses/grid/edit/${course._id}`} className="card-link">{course.title}</Link>
         {!editing && <button className="float-right" onClick={() => setEditing(true)}>
           <i className="float-right fa fa-edit fa-lg wbdv-course-edit"></i>
         </button>}

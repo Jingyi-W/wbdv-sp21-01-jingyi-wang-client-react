@@ -4,14 +4,24 @@ import CourseManager from "./components/course-manager/course-manager";
 import CourseEditor from "./components/course-editor/course-editor";
 import Home from "./components/home"
 import {BrowserRouter, Route} from "react-router-dom";
+import React from "react";
 
 function App() {
   return (
       <BrowserRouter>
         <Route path="/" exact={true}  component={Home}/>
         <Route path="/courses" component={CourseManager}/>
+        <Route path={[
+          // "/courses/:layout/edit",
+          "/courses/:layout/edit/:courseId",
+          "/courses/:layout/edit/:courseId/modules/:moduleId",
+          "/courses/:layout/edit/:courseId/modules/:moduleId/lessons/:lessonId",
+          "/courses/:layout/edit/:courseId/modules/:moduleId/lessons/:lessonId/topics/:topicId"]}
+               exact={true}
+               render={(props) => <CourseEditor {...props}/>}>
+        </Route>
         {/*<Route path="/editor" component={CourseEditor}/>*/}
-        <Route path={"/editor"} render={(props) => <CourseEditor {...props}/>}/>
+        {/*<Route path={"/editor"} render={(props) => <CourseEditor {...props}/>}/>*/}
         {/*<div className="zero-margin">*/}
         {/*  <CourseManager/>*/}
         {/*  <CourseEditor/>*/}

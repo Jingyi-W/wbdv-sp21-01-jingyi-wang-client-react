@@ -16,7 +16,7 @@ const CourseRow = ({course, deleteCourse, updateCourse}) => {
   return (
       <tr className={"d-flex wbdv-course-tr"}>
         <td className={"col-lg-4 text-left wbdv-course-title"}>
-          {!editing && <Link to="/editor">{course.title}</Link>}
+          {!editing && <Link to={`/courses/table/edit/${course._id}`}>{course.title}</Link>}
           {editing && <input
               className={"form-control"}
               onChange={(e) => setTitle(e.target.value)}
