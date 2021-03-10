@@ -11,6 +11,7 @@ function App() {
       <BrowserRouter>
         <Route path="/" exact={true}  component={Home}/>
         <Route path="/courses" component={CourseManager}/>
+        <Route path={"/courses/:layout/edit"} component={() => <h1>Please add the courseId to the path or enter the course editor from course table or course grid.</h1>}/>
         <Route path={[
           // "/courses/:layout/edit",
           "/courses/:layout/edit/:courseId",
