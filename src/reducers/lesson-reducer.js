@@ -38,6 +38,11 @@ const lessonReducer = (prevState = initialState, action) => {
         ...prevState,
         lessons: prevState.lessons.filter(lesson => lesson._id !== action.lessonToDelete._id)
       }
+    case "EMPTY_LESSONS":
+      return {
+        ...prevState,
+        lessons:[]
+      }
     default:
       return prevState
   }

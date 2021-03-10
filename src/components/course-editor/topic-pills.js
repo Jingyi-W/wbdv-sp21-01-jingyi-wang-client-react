@@ -17,7 +17,6 @@ const TopicPills = ({
     if (moduleId !=="undefined" && typeof moduleId !== "undefined" && lessonId !== "undefined" && typeof lessonId !== "undefined") {
       findTopicsForLesson(lessonId)
     } else {
-      // topics=[]
       emptyTopic()
     }
   }, [moduleId, lessonId])
@@ -39,6 +38,7 @@ const TopicPills = ({
             <button onClick={() => {
                 if (lessonId !== "undefined" && typeof lessonId !== "undefined") {
                   createTopic(lessonId)
+                  findTopicsForLesson(lessonId)
                 } else {
                   alert("Please select a lesson first!")
                 }
