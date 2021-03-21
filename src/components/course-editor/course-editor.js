@@ -5,12 +5,14 @@ import {Provider} from "react-redux";
 import moduleReducer from "../../reducers/module-reducer";
 import lessonReducer from "../../reducers/lesson-reducer";
 import topicReducer from "../../reducers/topic-reducer";
+import widgetReducer from "../../reducers/widget-reducer";
 import courseService from "../../services/course-service"
 import LessonTabs from "./lesson-tabs";
 import ModuleList from "./module-list";
 import TopicPills from "./topic-pills";
+import WidgetList from "../widgets/widget-list";
 
-const reducer = combineReducers({moduleReducer: moduleReducer, lessonReducer: lessonReducer, topicReducer: topicReducer} )
+const reducer = combineReducers({moduleReducer: moduleReducer, lessonReducer: lessonReducer, topicReducer: topicReducer, widgetReducer} )
 
 const store = createStore(reducer)
 
@@ -52,6 +54,12 @@ const CourseEditor = () => {
             </div>
             <div className={"row"}>
               <TopicPills/>
+            </div>
+            <div className={"row"}>
+              <p></p>
+            </div>
+            <div className={"row"}>
+              <WidgetList/>
             </div>
           </div>
         </div>
