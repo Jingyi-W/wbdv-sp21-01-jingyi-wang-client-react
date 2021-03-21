@@ -1,4 +1,8 @@
 import React, {useState, useParam} from 'react'
+import TypeDropdown from "./type-dropdown";
+import EditingParagraph from "./editing-paragraph";
+import EditingHeading from "./editing-heading";
+import Buttons from "./widget-buttons";
 
 const ParagraphWidget = ({widget, deleteWidget, updateWidget}) => {
   const [editing, setEditing] = useState(false)
@@ -12,9 +16,7 @@ const ParagraphWidget = ({widget, deleteWidget, updateWidget}) => {
             <div className={"row"}>
               <div className={"col-10"}><p>{widget.text}</p></div>
               <div className={"col-2"}>
-                <i onClick={() => {
-                  setEditing(true)
-                }} className="float-right fa fa-cog fa-lg"></i>
+                <Buttons.EditButton setEditing={setEditing}/>
               </div>
             </div>
           </div>
@@ -25,42 +27,16 @@ const ParagraphWidget = ({widget, deleteWidget, updateWidget}) => {
             <div className={"row"}>
               <div className={"col-10"}>
                 <div className={"row"}>
-                  <select className={"form-control"} value={cachedWidget.type} onChange={(e) =>{
-                    setCachedWidget({...widget, type:e.target.value})
-                  }}>
-                    <option value={"HEADING"}>Heading</option>
-                    <option value={"LIST"}>List</option>
-                    <option value={"PARAGRAPH"}>Paragraph</option>
-                    <option value={"IMAGE"}>Image</option>
-                    <option value={"YOUTUBE"}>Youtube</option>
-                    <option value={"HTML"}>HTML</option>
-                    <option value={"LINK"}>Link</option>
-                  </select>
+                  <TypeDropdown widget={widget} cachedWidget={cachedWidget} setCachedWidget={setCachedWidget} updateWidget={updateWidget}/>
                 </div>
-                <div className={"row"}>
-                  <textarea className={"form-control"}
-                            value={cachedWidget.text}
-                            placeholder={widget.text}
-                            onChange={(e) => {
-                              setCachedWidget({
-                                ...widget,
-                                text: e.target.value
-                              })
-                            }}>
-                  </textarea>
-                </div>
+                {cachedWidget.type === "PARAGRAPH" &&
+                <EditingParagraph widget={widget} cachedWidget={cachedWidget} setCachedWidget={setCachedWidget} updateWidget={updateWidget}/>}
+                {cachedWidget.type === "HEADING" &&
+                <EditingHeading widget={widget} cachedWidget={cachedWidget} setCachedWidget={setCachedWidget} updateWidget={updateWidget}/>}
               </div>
               <div className={"col-2"}>
-                <i onClick={() => {
-                  updateWidget(cachedWidget)
-                  setEditing(false)
-                  setCachedWidget({text:"", type:cachedWidget.type, size: cachedWidget.size})
-                }} className="pull-right fa fa-check fa-lg"></i>
-                <i onClick={() => {
-                  deleteWidget(widget)
-                  setEditing(false)
-                  setCachedWidget({text:"", type:cachedWidget.type, size: cachedWidget.size})
-                }} className="pull-right fa fa-trash fa-lg"></i>
+                <Buttons.UpdateButton updateWidget={updateWidget} cachedWidget={cachedWidget} setEditing={setEditing} setCachedWidget={setCachedWidget}/>
+                <Buttons.DeleteButton deleteWidget={deleteWidget} setEditing={setEditing} widget={widget} setCachedWidget={setCachedWidget} cachedWidget={cachedWidget}/>
               </div>
 
             </div>

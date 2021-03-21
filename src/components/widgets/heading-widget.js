@@ -1,4 +1,8 @@
 import React, {useState} from 'react'
+import TypeDropdown from "./type-dropdown";
+import EditingHeading from "./editing-heading";
+import EditingParagraph from "./editing-paragraph";
+import Buttons from "./widget-buttons"
 
 const HeadingWidget = ({widget, deleteWidget, updateWidget}) => {
 
@@ -20,9 +24,7 @@ const HeadingWidget = ({widget, deleteWidget, updateWidget}) => {
                 { widget.size ===6 && <h6>{widget.text}</h6>}
               </div>
               <div className={"col-2"}>
-                <i onClick={() => {
-                setEditing(true)
-              }} className="float-right fa fa-cog fa-lg"></i>
+                <Buttons.EditButton setEditing={setEditing}/>
               </div>
             </div>
           </div>
@@ -33,53 +35,17 @@ const HeadingWidget = ({widget, deleteWidget, updateWidget}) => {
             <div className={"row"}>
               <div className={"col-10"}>
                 <div className={"row"}>
-                  <select className={"form-control"} value={cachedWidget.type} onChange={(e) =>{
-                    setCachedWidget({...widget, type:e.target.value})
-                  }}>
-                    <option value={"HEADING"}>Heading</option>
-                    <option value={"LIST"}>List</option>
-                    <option value={"PARAGRAPH"}>Paragraph</option>
-                    <option value={"IMAGE"}>Image</option>
-                    <option value={"YOUTUBE"}>Youtube</option>
-                    <option value={"HTML"}>HTML</option>
-                    <option value={"LINK"}>Link</option>
-                  </select>
+                  <TypeDropdown widget={widget} cachedWidget={cachedWidget} setCachedWidget={setCachedWidget} updateWidget={updateWidget}/>
                 </div>
-                <div className={"row"}>
-                  <input className={"form-control"}
-                         placeholder={widget.text}
-                         type={"text"}
-                         onChange={(e) => {
-                           setCachedWidget({
-                             ...widget,
-                             text: e.target.value
-                           })
-                         }}
-                         value={cachedWidget.text}/>
-                </div>
-                <div className={"row"}>
-                  <select onChange={(e) => setCachedWidget({...widget, size: parseInt(e.target.value)} )} value={cachedWidget.size} className="form-control">
-                    <option value={1}>Heading 1</option>
-                    <option value={2}>Heading 2</option>
-                    <option value={3}>Heading 3</option>
-                    <option value={4}>Heading 4</option>
-                    <option value={5}>Heading 5</option>
-                    <option value={6}>Heading 6</option>
-                  </select>
-                </div>
+                {cachedWidget.type === "PARAGRAPH" &&
+                <EditingParagraph widget={widget} cachedWidget={cachedWidget} setCachedWidget={setCachedWidget} updateWidget={updateWidget}/>}
+                {cachedWidget.type === "HEADING" &&
+                <EditingHeading widget={widget} cachedWidget={cachedWidget} setCachedWidget={setCachedWidget} updateWidget={updateWidget}/>}
 
               </div>
               <div className={"col-2"}>
-                <i onClick={() => {
-                updateWidget(cachedWidget)
-                setEditing(false)
-                setCachedWidget({text:"", type:cachedWidget.type, size: cachedWidget.size})
-              }} className="pull-right fa fa-check fa-lg"></i>
-                <i onClick={() => {
-                  deleteWidget(widget)
-                  setEditing(false)
-                  setCachedWidget({text:"", type:cachedWidget.type, size: cachedWidget.size})
-                }} className="pull-right fa fa-trash fa-lg"></i>
+                <Buttons.UpdateButton updateWidget={updateWidget} cachedWidget={cachedWidget} setEditing={setEditing} setCachedWidget={setCachedWidget}/>
+                <Buttons.DeleteButton deleteWidget={deleteWidget} setEditing={setEditing} widget={widget} setCachedWidget={setCachedWidget} cachedWidget={cachedWidget}/>
               </div>
             </div>
           </div>
