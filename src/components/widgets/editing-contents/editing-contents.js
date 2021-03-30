@@ -3,6 +3,8 @@ import TypeDropdown from "./type-dropdown";
 import EditingParagraph from "./editing-paragraph";
 import EditingHeading from "./editing-heading";
 import Buttons from "../widget-buttons";
+import EditingList from "./editing-list";
+import EditingImage from "./editing-image";
 
 const EditingContent = ({widget, cachedWidget, setCachedWidget, updateWidget, setEditing, deleteWidget}) =>
     <div className={"container-fluid"}>
@@ -21,6 +23,16 @@ const EditingContent = ({widget, cachedWidget, setCachedWidget, updateWidget, se
                             updateWidget={updateWidget}/>}
           {cachedWidget.type === "HEADING" &&
           <EditingHeading widget={widget}
+                          cachedWidget={cachedWidget}
+                          setCachedWidget={setCachedWidget}
+                          updateWidget={updateWidget}/>}
+          {cachedWidget.type === "LIST" &&
+          <EditingList widget={widget}
+                          cachedWidget={cachedWidget}
+                          setCachedWidget={setCachedWidget}
+                          updateWidget={updateWidget}/>}
+          {cachedWidget.type === "IMAGE" &&
+          <EditingImage widget={widget}
                           cachedWidget={cachedWidget}
                           setCachedWidget={setCachedWidget}
                           updateWidget={updateWidget}/>}
