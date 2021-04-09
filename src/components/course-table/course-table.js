@@ -14,7 +14,8 @@ export default class CourseTable extends React.Component {
           <table className="table wbdv-course-table">
             <thead>
               <tr className={"d-flex"}>
-                <th className={"col-lg-4 text-left"}>Title</th>
+                <th className={"col-lg-3 text-left"}>Title</th>
+                <th className={"col-lg-1 text-left"}>Quizzes</th>
                 <th className={"col-lg-2 text-right d-none d-md-table-cell"}>Owned by</th>
                 <th className={"col-lg-4 text-center d-none d-lg-table-cell"}>Last modified by me</th>
                 <th className={"col-lg-2 text-right justify-content-right"} align="right">

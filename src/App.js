@@ -5,6 +5,17 @@ import CourseEditor from "./components/course-editor/course-editor";
 import Home from "./components/home"
 import {BrowserRouter, Route} from "react-router-dom";
 import React from "react";
+import QuizzesList from "./components/quizzes/quizzes-list";
+import {combineReducers, createStore} from "redux";
+import quizReducer from "./reducers/quiz-reducer";
+import questionReducer from "./reducers/question-reducer";
+import {Provider} from "react-redux";
+import Quiz from "./components/quizzes/quiz";
+
+const reducers = combineReducers({quizReducer: quizReducer, questionReducer: questionReducer} )
+
+const store = createStore(reducers)
+
 
 function App() {
   return (
@@ -21,6 +32,12 @@ function App() {
                exact={true}
                render={(props) => <CourseEditor {...props}/>}>
         </Route>
+        <Provider store={store}>
+          <Route path={"/courses/:courseId/quizzes"} exact={true} component={QuizzesList}/>
+          <Route path={"/courses/:courseId/quizzes/:quizId"} exact={true} component={Quiz}/>
+        </Provider>
+
+
         {/*<Route path="/editor" component={CourseEditor}/>*/}
         {/*<Route path={"/editor"} render={(props) => <CourseEditor {...props}/>}/>*/}
         {/*<div className="zero-margin">*/}

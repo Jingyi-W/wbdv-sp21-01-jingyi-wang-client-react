@@ -20,6 +20,7 @@ const CourseCard = ({course, picName, deleteCourse, updateCourse}) => {
            alt="Card image cap"/>
       <div className="card-body">
         {!editing && <h5 className="card-title">{course.title}</h5>}
+        {!editing && <Link to={`/courses/${course._id}/quizzes`}>Quizzes</Link>}
         {editing && <input
             className={"form-control"}
             onChange={(e) => setTitle(e.target.value)}

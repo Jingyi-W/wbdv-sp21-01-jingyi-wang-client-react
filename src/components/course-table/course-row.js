@@ -15,7 +15,7 @@ const CourseRow = ({course, deleteCourse, updateCourse}) => {
   }
   return (
       <tr className={"d-flex wbdv-course-tr"}>
-        <td className={"col-lg-4 text-left wbdv-course-title"}>
+        <td className={"col-lg-3 text-left wbdv-course-title"}>
           {!editing && <Link to={`/courses/table/edit/${course._id}`}>{course.title}</Link>}
           {editing && <input
               className={"form-control"}
@@ -23,6 +23,9 @@ const CourseRow = ({course, deleteCourse, updateCourse}) => {
               value={title}
               placeholder={course.title}
               type={"text"}/>}
+        </td>
+        <td className={"col-lg-1 text-left wbdv-course-title"}>
+          {!editing && <Link to={`/courses/${course._id}/quizzes`}>Quizzes</Link>}
         </td>
         <td className={"col-lg-2 text-right d-none d-md-table-cell wbdv-course-owned-by"}>{course.owner}</td>
         <td className={"col-lg-4 text-center d-none d-lg-table-cell wbdv-course-last-modified"}>{course.lastModified}</td>
