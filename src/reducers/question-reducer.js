@@ -1,10 +1,18 @@
 const initialState = {
   questions: [],
-  theQuestion: null
+  theQuestion: null,
+  score: null,
 }
 
 const questionReducer = (prevState = initialState, action) => {
   switch (action.type) {
+    case "SUBMIT_QUIZ":
+      return {
+        ...prevState,
+        questions: action.questions,
+        score: action.score
+      }
+
     case "CREATE_QUESTION":
       return {
         ...prevState,

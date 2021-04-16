@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-const TrueFalseQuestion = ({theQuestion}) => {
+const TrueFalseQuestion = ({theQuestion, setQuestionAnswer, correctAnswerCount, setCorrectAnswerCount}) => {
   const [answered, setAnswered] = useState(false)
   const [answerIsCorrect, setAnswerIsCorrect] = useState(false)
   const [studentAnswer, setStudentAnswer] = useState(null)
@@ -65,7 +65,11 @@ const TrueFalseQuestion = ({theQuestion}) => {
           &nbsp;
         </div>
         <div className={"row"}>
-          <button className={"btn btn-success"} onClick={() => setAnswered(true)}>Grade</button>
+          <button className={"btn btn-success"} onClick={() => {
+            setAnswered(true)
+            setQuestionAnswer(theQuestion, studentAnswer)
+            setCorrectAnswerCount(studentAnswer == theQuestion.correct ? correctAnswerCount + 1 : correctAnswerCount)
+          }}>Grade</button>
         </div>
       </div>
   )

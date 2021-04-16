@@ -8,11 +8,16 @@ import MultipleChoiceQuestion from "./multiple-choice-question";
 
 const Quiz = ({
     questions,
-    findQuestionsForQuiz
+    findQuestionsForQuiz,
+    setQuestionAnswer,
+    submitQuiz
 }) => {
 
   const {courseId, quizId} = useParams();
   const [quizTitle, setQuizTitle] = useState("")
+  const [submitted, setSubmitted] = useState(false)
+  const [correctAnswerCount, setCorrectAnswerCount] = useState(0)
+
   useEffect(() => {
     quizService.findQuizById(quizId).then(actualQuiz => {
       setQuizTitle(actualQuiz.title)
@@ -22,28 +27,51 @@ const Quiz = ({
 
 
   return (
-      <div>
+      <div className={'container-fluid'}>
         <h1>
           {quizTitle}
         </h1>
         <div>
           {questions.map(question => (
             <li key={question.id} className={"list-group-item"}>
-              {question.type === "MULTIPLE_CHOICE" && <MultipleChoiceQuestion theQuestion={question}/>}
-              {question.type === "TRUE_FALSE" && <TrueFalseQuestion theQuestion={question}/>}
+              {question.type === "MULTIPLE_CHOICE" && <MultipleChoiceQuestion theQuestion={question} setQuestionAnswer={setQuestionAnswer} correctAnswerCount={correctAnswerCount} setCorrectAnswerCount={setCorrectAnswerCount}/>}
+              {question.type === "TRUE_FALSE" && <TrueFalseQuestion theQuestion={question} setQuestionAnswer={setQuestionAnswer} correctAnswerCount={correctAnswerCount} setCorrectAnswerCount={setCorrectAnswerCount}/>}
             </li>
           ))}
         </div>
+        &nbsp;
+        <div className="d-grid gap-2">
+          <button className="btn btn-primary" type="button" onClick={() => {
+            submitQuiz(quizId, questions)
+            console.log(questions)
+            setSubmitted(true)
+          }}>Submit Quiz</button>
+        </div>
+        &nbsp;
+        {submitted &&
+            <div>
+              &nbsp;Your score for this attempt: <span>{`${100 * correctAnswerCount / questions.length}`}</span>
+            </div>
+        }
       </div>
   )
 }
 
 const stpm = (state) => ({
   questions: state.questionReducer.questions,
-  theQuestion: state.questionReducer.theQuestion
+  theQuestion: state.questionReducer.theQuestion,
+  theScore: state.questionReducer.score
 })
 
 const dtpm = (dispatch) => ({
+  submitQuiz: (quizId, questions) => {
+    questionService.submitQuiz(quizId, questions).then(quizAttempt => dispatch({
+      type: "SUBMIT_QUIZ",
+      questions: quizAttempt.answers,
+      theScore: quizAttempt.score
+    }))
+  },
+
   createQuestion: (quizId) => {
     questionService.createQuestion(quizId, {title: "New Quiz"})
     .then(actualQuestion => dispatch({
@@ -67,6 +95,12 @@ const dtpm = (dispatch) => ({
     questionService.findQuestionById(questionId).then(question => dispatch({
       type: "FIND_QUESTION",
       theQuestion: question
+    }))
+  },
+  setQuestionAnswer: (question, studentAnswer) => {
+    questionService.updateQuestion(question._id, {"answer":studentAnswer}).then(newQuestion => dispatch({
+      type: 'UPDATE_QUESTION',
+      updatedQuestion: newQuestion
     }))
   },
   updateQuestion: (question) => {
